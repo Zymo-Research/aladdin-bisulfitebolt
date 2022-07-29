@@ -5,9 +5,7 @@ process Align {
     publishDir "${params.publish_dir}/align", mode: 'copy'
     
     input:
-    val sample
-    path read1
-    path read2
+    tuple val(sample), path(read1), path(read2)
     path index
 
     output:
