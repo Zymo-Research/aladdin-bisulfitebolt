@@ -17,8 +17,8 @@ process Align {
     bsbolt Align -A 1 -B 4 -CP 0.5 -CT 5 -D 0.5 \
         -DB $params.index \
         -DR 0.95 -E 1,1 \
-        -F1 $params.read1 \
-        -F2 $params.read2 \
+        -F1 $read1 \
+        -F2 $read2 \
         -INDEL 6,6 -L 30,30 -O $sample \
         -OT 2 -SP 0.1 -T 10 -U 17 -XA 100,200 -c 50 -d 100 -k 25 \
         -m 50 -r 1.5 -t 7 -w 100 -y 20
