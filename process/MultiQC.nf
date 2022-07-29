@@ -1,7 +1,7 @@
 // MultiQC
 
 process MultiQC {
-    publishDir "${params.publish_dir}/MultiQC", mode: 'copy'
+    publishDir "$params.publish_dir/MultiQC", mode: 'copy'
 
     input:
     val title
