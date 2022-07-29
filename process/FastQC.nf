@@ -1,14 +1,15 @@
 // FastQC
 
 process FastQC {
-    publishDir "${params.publish_dir}/fastqc", mode: 'copy'
+    publishDir "$params.publish_dir/fastqc", mode: 'copy'
+    // add tag here : cluster size small/medium/large/xlarge 
 
     input:
     tuple val(sample), path(read1), path(read2)
 
     output:
-    path "*_fastqc.{html,zip}", emit: report
-    path "v_*.txt", emit: version
+    path "*_fastqc.{html,zip}"      , emit: report
+    path "v_*.txt"                  , emit: version
 
     script:
     """
