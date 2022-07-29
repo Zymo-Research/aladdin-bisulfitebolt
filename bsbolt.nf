@@ -1,10 +1,13 @@
 //alignment
 params.publish_dir = './results'
-params.index = "$baseDir/index/"
-params.read1 = "$baseDir/test_data/DogWolf00108_ca_R1.fastq"
-params.read2 = "$baseDir/test_data/DogWolf00108_ca_R2.fastq"
-params.sample = 'DogWolf00108'
+params.index = ""
+params.metadata = ""
 params.title = ""
+
+meta = Channel.from(file(params.metadata))
+    .splitCsv(header:true)
+    .map{ row-> tuple("$row.sample"), file("$row.read1"), file("$row.read2") }
+    .set{sample_ch}
 
 nextflow.enable.dsl = 2
 
@@ -14,8 +17,8 @@ include { CallMethylation } from ('./process/CallMethylation')
 include { MultiQC } from ('./process/MultiQC')
 
 workflow { 
-    FastQC(params.sample, params.read1, params.read2)
-    Align(params.sample, params.index, params.read1, params.read2)
-    CallMethylation(params.sample, arams.index, Align.out.bam)
-    MultiQC(params.title, FastQC.out.report, Align.out.bam, CallMethylation.out.CGmap)
+    FastQC(sample_ch)
+    Align(sample_ch, params.index)
+    CallMethylation(sample_ch, params.index, Align.out.bam)
+    MultiQC(params.title, FastQC.out.report.collect(), Align.out.bam, CallMethylation.out.CGmap)
     }
