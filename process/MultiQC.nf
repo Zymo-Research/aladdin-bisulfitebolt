@@ -1,8 +1,9 @@
 // MultiQC
 
 process MultiQC {
-    publishDir "$params.publish_dir/MultiQC", mode: 'copy'
-
+    publishDir "${params.publish_dir}/MultiQC", mode: 'copy'
+    container "docker.io/xingaulag/pi-visualization:latest"
+    
     input:
     val title
     path fastqc
