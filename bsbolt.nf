@@ -7,7 +7,6 @@ nextflow.enable.dsl = 2
 params.publish_dir = './results'
 params.index = ""
 params.metadata = ""
-params.title = ""
 
 meta = Channel.from(file(params.metadata))
                 .splitCsv(header:true)
@@ -23,6 +22,6 @@ include { MultiQC }             from ('./process/MultiQC')
 workflow { 
     FastQC(sample_ch)
     Align(sample_ch, params.index)
-    CallMethylation(sample_ch, params.index, Align.out.bam)
-    MultiQC(params.title, FastQC.out.report.collect(), Align.out.bam, CallMethylation.out.CGmap)
-}
+    CallMethylation(params.index, Align.out.bam)
+    MultiQC(FastQC.out.report.collect(), Align.out.bam, CallMethylation.out.CGmap)
+    }

@@ -10,8 +10,8 @@ process Align {
     path index
 
     output:
-    path "*.sorted.{ bam,bai }"       , emit: bam
-    path "v_*.txt"                    , emit: version
+    tuple val(sample), path("*.sorted.{bam,bai}")   , emit: bam
+    path "v_*.txt"                                  , emit: version
 
     script:
     """
@@ -20,12 +20,12 @@ process Align {
                     -DR 0.95 -E 1,1 \
                     -F1 $read1 \
                     -F2 $read2 \
-                    -INDEL 6,6 -L 30,30 -O ${sample} \
+                    -INDEL 6,6 -L 30,30 -O $sample \
                     -OT 2 -SP 0.1 -T 10 -U 17 -XA 100,200 -c 50 -d 100 -k 25 \
                     -m 50 -r 1.5 -t 7 -w 100 -y 20
 
     samtools fixmate -p -m ${sample}.bam ${sample}.fixmates.bam
-    samtools sort -@ 7 -O BAM -o ${sample}.sorted.bam ${sample}.fixmates.bam
+    samtools sort -@ $task.cpus -O BAM -o ${sample}.sorted.bam ${sample}.fixmates.bam
     samtools markdup ${sample}.sorted.bam ${sample}.dup.bam
     samtools index ${sample}.dup.bam
 

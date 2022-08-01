@@ -4,16 +4,15 @@ process MultiQC {
     publishDir "$params.publish_dir/MultiQC", mode: 'copy'
 
     input:
-    val title
     path fastqc
-    path bam
+    tuple val(sample), path(bam)
     path CGmap
     
     output:
-    path "*.html"
+    path "*"
 
     script:
     """
-    multiqc -f . --title $title
+    multiqc -f . --title $sample
     """
 }

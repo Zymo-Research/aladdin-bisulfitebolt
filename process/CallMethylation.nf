@@ -5,9 +5,8 @@ process CallMethylation {
     // add tag here : cluster size small/medium/large/xlarge 
 
     input:
-    val sample
     path index
-    path bam
+    tuple val(sample), path(bam)
 
     output:
     path "*"            , emit: CGmap
