@@ -1,20 +1,21 @@
 // MultiQC
 
 process MultiQC {
-    publishDir "${params.publish_dir}/MultiQC", mode: 'copy'
-    container "docker.io/xingaulag/pi-visualization:latest"
-    
+    publishDir "$params.publish_dir/MultiQC", mode: 'copy'
+    container = 'docker.io/ewels/multiqc:latest'
+
     input:
-    val title
     path fastqc
-    path bam
+    tuple val(sample), path(log)
+    tuple val(sample), path(bam)
     path CGmap
+    path matrix
     
     output:
-    path "*.html"
+    path "*"
 
     script:
     """
-    multiqc -f . --title $title
+    multiqc -f . --title $sample
     """
 }
