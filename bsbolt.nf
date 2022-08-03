@@ -15,13 +15,17 @@ meta = Channel.from(file(params.metadata))
 
 
 include { FastQC }              from ('./process/FastQC')
+include { Cutadapt }            from ('./process/Cutadapt')
 include { Align }               from ('./process/Align')
 include { CallMethylation }     from ('./process/CallMethylation')
+include { MatrixBuilding }      from ('./process/MatrixBuilding')
 include { MultiQC }             from ('./process/MultiQC')
 
 workflow { 
     FastQC(sample_ch)
-    Align(sample_ch, params.index)
+    Cutadapt(sample_ch)
+    Align(Cutadapt.out.ca_read1,Cutadapt.out.ca_read2, params.index)
     CallMethylation(params.index, Align.out.bam)
-    MultiQC(FastQC.out.report.collect(), Align.out.bam, CallMethylation.out.CGmap)
+    MatrixBuilding(CallMethylation.out.CGmap.collect())
+    MultiQC(FastQC.out.report.collect(), Cutadapt.out.log.collect(), Align.out.bam, CallMethylation.out.CGmap, MatrixBuilding.out.matrix)
     }
