@@ -1,3 +1,5 @@
+// Cutadapt
+
 process Cutadapt {
     publishDir "${params.publish_dir}/Cutadapt", mode: 'copy'
     container = 'quay.io/biocontainers/cutadapt:3.4--py37h73a75cf_1'
@@ -7,10 +9,9 @@ process Cutadapt {
 
 
     output:
-    tuple val(sample), path("*_ca_R1.fastq"), emit: ca_read1
-    tuple val(sample), path("*_ca_R2.fastq"), emit: ca_read2
-    tuple val(sample), path('*.log')          , emit: log
-    path "v_*.txt", emit: version
+    tuple val(sample), path("*_ca_{R1,R2}.fastq")   , emit: trimmed
+    tuple val(sample), path('*.log')                , emit: log
+    path "v_*.txt"                                  , emit: version
 
     script:
     """

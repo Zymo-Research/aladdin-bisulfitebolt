@@ -1,3 +1,5 @@
+// MatrixBuilding
+
 process MatrixBuilding {
     publishDir "${params.publish_dir}/MatrixBuilding", mode: 'copy'
     container = 'docker.io/thamlee2601/bsbolt:v1.0.3'
@@ -6,8 +8,8 @@ process MatrixBuilding {
     path CGmap
 
     output:
-    path "CGmap_matrix.txt"    , emit: matrix
-    path "v_bsbolt.txt"     , emit: version
+    path "CGmap_matrix.txt"     , emit: matrix
+    path "v_bsbolt.txt"         , emit: version
 
     script:
     """

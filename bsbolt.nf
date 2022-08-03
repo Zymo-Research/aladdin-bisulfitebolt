@@ -1,4 +1,3 @@
-// Add nextflow shebang line to the top of the file:
 // #!/usr/bin/env nextflow
 
 nextflow.enable.dsl = 2
@@ -24,7 +23,7 @@ include { MultiQC }             from ('./process/MultiQC')
 workflow { 
     FastQC(sample_ch)
     Cutadapt(sample_ch)
-    Align(Cutadapt.out.ca_read1,Cutadapt.out.ca_read2, params.index)
+    Align(Cutadapt.out.trimmed, params.index)
     CallMethylation(params.index, Align.out.bam)
     MatrixBuilding(CallMethylation.out.CGmap.collect())
     MultiQC(FastQC.out.report.collect(), Cutadapt.out.log.collect(), Align.out.bam, CallMethylation.out.CGmap, MatrixBuilding.out.matrix)
