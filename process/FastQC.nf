@@ -3,6 +3,7 @@
 process FastQC {
     publishDir "$params.publish_dir/fastqc", mode: 'copy'
     // add tag here : cluster size small/medium/large/xlarge 
+    container 'quay.io/biocontainers/fastqc:0.11.9--0'
 
     input:
     tuple val(sample), path(read1), path(read2)

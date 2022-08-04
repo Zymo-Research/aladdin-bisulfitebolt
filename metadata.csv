@@ -1,2 +1,2 @@
 sample,read1,read2
-DogWolf00108,/home/xingau/nxf-bisulfitebolt-local/results_testing_pipe/DogWolf00108_ca_R1.fastq,/home/xingau/nxf-bisulfitebolt-local/results_testing_pipe/DogWolf00108_ca_R2.fastq
+DogWolf00108,s3://pacinfo-fs/tmp/ywang/BSBolt_test_data/DogWolf00108_S84_R1_trimmed.fastq.gz,s3://pacinfo-fs/tmp/ywang/BSBolt_test_data/DogWolf00108_S84_R2_trimmed.fastq.gz
