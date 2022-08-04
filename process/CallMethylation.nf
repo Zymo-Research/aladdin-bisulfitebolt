@@ -24,10 +24,9 @@ process CallMethylation {
                             -ignore-ov \
                             -max 8000 \
                             -min 10 \
-                            -t 8 
+                            -t 8
     cat .command.out > ${sample}_report.txt
     python $baseDir/bin/parse_bsbolt.py ${sample}_report.txt
-
     bsbolt -h | grep BiSulfite > v_bsbolt.txt
     """
 }
