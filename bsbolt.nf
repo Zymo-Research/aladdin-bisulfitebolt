@@ -6,7 +6,7 @@ nextflow.enable.dsl = 2
 params.publish_dir = './results'
 params.index = ""
 params.metadata = ""
-params.project = "Test  Project"
+params.project = "Test"
 
 meta = Channel.from(file(params.metadata))
                 .splitCsv(header:true)
@@ -27,5 +27,5 @@ workflow {
     Align(Cutadapt.out.trimmed, params.index)
     CallMethylation(params.index, Align.out.bam)
     MatrixBuilding(CallMethylation.out.CGmap.collect())
-    MultiQC(params.project, FastQC.out.report.collect(), Cutadapt.out.log.collect(), Align.out.report, CallMethylation.out.CGmap, MatrixBuilding.out.matrix)
+    MultiQC(params.project, FastQC.out.report.collect(), Cutadapt.out.log.collect(), Align.out.bam, CallMethylation.out.CGmap, MatrixBuilding.out.matrix)
     }
