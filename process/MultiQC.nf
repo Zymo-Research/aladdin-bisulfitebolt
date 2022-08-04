@@ -5,6 +5,7 @@ process MultiQC {
     container = 'docker.io/ewels/multiqc:latest'
 
     input:
+    val project
     path fastqc
     tuple val(sample), path(log)
     tuple val(sample), path(bam)
@@ -16,6 +17,6 @@ process MultiQC {
 
     script:
     """
-    multiqc -f . --title $sample
+    multiqc -f . --title $params.project
     """
 }
