@@ -10,7 +10,7 @@ process Cutadapt {
 
     output:
     tuple val(sample), path("*_ca_{R1,R2}.fastq")   , emit: trimmed
-    tuple val(sample), path('*.log')                , emit: log
+    path('*.log')                                   , emit: log
     path "v_*.txt"                                  , emit: version
 
     script:

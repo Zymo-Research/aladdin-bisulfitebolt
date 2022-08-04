@@ -7,7 +7,7 @@ process MultiQC {
     input:
     val project
     path fastqc
-    tuple val(sample), path(log)
+    path log
     tuple val(sample), path(bam)
     path CGmap
     path matrix
