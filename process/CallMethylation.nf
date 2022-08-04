@@ -23,7 +23,7 @@ process CallMethylation {
                             -ignore-ov \
                             -max 8000 \
                             -min 10 \
-                            -t 8
+                            -t 8 > methylation_stats.txt
     bsbolt -h | grep BiSulfite > v_bsbolt.txt
     """
 }
