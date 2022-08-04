@@ -1,4 +1,3 @@
-// Add nextflow shebang line to the top of the file:
 // #!/usr/bin/env nextflow
 
 nextflow.enable.dsl = 2
@@ -7,6 +6,7 @@ nextflow.enable.dsl = 2
 params.publish_dir = './results'
 params.index = ""
 params.metadata = ""
+params.project = "Test"
 
 meta = Channel.from(file(params.metadata))
                 .splitCsv(header:true)
@@ -15,13 +15,17 @@ meta = Channel.from(file(params.metadata))
 
 
 include { FastQC }              from ('./process/FastQC')
+include { Cutadapt }            from ('./process/Cutadapt')
 include { Align }               from ('./process/Align')
 include { CallMethylation }     from ('./process/CallMethylation')
+include { MatrixBuilding }      from ('./process/MatrixBuilding')
 include { MultiQC }             from ('./process/MultiQC')
 
 workflow { 
     FastQC(sample_ch)
-    Align(sample_ch, params.index)
+    Cutadapt(sample_ch)
+    Align(Cutadapt.out.trimmed, params.index)
     CallMethylation(params.index, Align.out.bam)
-    MultiQC(FastQC.out.report.collect(), Align.out.bam, CallMethylation.out.CGmap)
+    MatrixBuilding(CallMethylation.out.CGmap.collect())
+    MultiQC(params.project, FastQC.out.report.collect(), Cutadapt.out.log.collect(), Align.out.bam, CallMethylation.out.CGmap, MatrixBuilding.out.matrix)
     }
