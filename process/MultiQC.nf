@@ -9,7 +9,7 @@ process MultiQC {
     path fastqc
     tuple val(sample), path(log)
     tuple val(sample), path(bam)
-    path CGmap
+    path align
     path matrix
     
     output:
