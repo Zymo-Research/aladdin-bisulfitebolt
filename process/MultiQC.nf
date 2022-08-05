@@ -1,6 +1,7 @@
 // MultiQC
 
 process MultiQC {
+    label "processLow"
     publishDir "$params.publish_dir/MultiQC", mode: 'copy'
     container = 'docker.io/ewels/multiqc:latest'
 
