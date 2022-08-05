@@ -25,7 +25,7 @@ nextflow run bsbolt.nf --index /path/to/index/genome/ \
                         2&>1 | tee headnode.log
 ```
 
-The design CSV file must have the following format.
+The metadata CSV file must have the following format.
 ```
 group,sample,read1,read2
 Control,Sample1,s3://mybucket/this_is_s1_R1.fastq.gz,s3://mybucket/this_is_s1_R2.fastq.gz
