@@ -22,7 +22,8 @@ regexes = {
             "Methylated C in CH context"    : "Methylated / Total Observed CH Cytosines:\s*(\d+)",
             }
 
-array_header = ['sample','%Methylated_C_in_CpG_context','%Methylated_C_in_CH_contextss']
+
+array_header = ['sample','%Methylated_C_in_CpG_context','%Methylated_C_in_CH_context']
 array = [s_name]
 mqc_fn = s_name + '_gs_mqc.txt'
 with open(mqc_fn, 'a') as fi:
