@@ -22,7 +22,7 @@ regexes = {
             "Methylated C in CH context"    : "Methylated / Total Observed CH Cytosines:\s*(\d+)",
             }
 
-array_header = ['sample','cpg','ch']
+array_header = ['sample','%Methylated_C_in_CpG_context','%Methylated_C_in_CH_contextss']
 array = [s_name]
 mqc_fn = s_name + '_gs_mqc.txt'
 with open(mqc_fn, 'a') as fi:
@@ -33,6 +33,6 @@ with open(mqc_fn, 'a') as fi:
             match = re.search(r, l)
             if match:
                 value = float(match.group(1))
-                array += [value]
+                array += [str(value) + '%']
     array_final = [array_header, array ]
     fi.write(tabulate(array_final, tablefmt="plain"))
