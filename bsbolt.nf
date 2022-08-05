@@ -30,7 +30,7 @@ workflow {
     FastQC(sample_ch)
     Cutadapt(sample_ch)
     Align(Cutadapt.out.trimmed, bsb_index.collect())
-    CallMethylation(params.index, Align.out.bam)
+    CallMethylation(bsb_index.collect(), Align.out.bam)
     MatrixBuilding(CallMethylation.out.CGmap.collect())
     MultiQC(params.project, FastQC.out.report.collect(), Cutadapt.out.log.collect(), Align.out.bam, CallMethylation.out.report, MatrixBuilding.out.matrix)
     }
