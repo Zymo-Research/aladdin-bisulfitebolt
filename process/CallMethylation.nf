@@ -3,7 +3,7 @@
 process CallMethylation {
     publishDir "$params.publish_dir/CallMethylation", mode: 'copy'
     // add tag here : cluster size small/medium/large/xlarge 
-    // container = 'docker.io/thamlee2601/bsbolt:v1.0.3'
+    container = 'docker.io/thamlee2601/bsbolt:v1.0.3'
 
     input:
     path index
