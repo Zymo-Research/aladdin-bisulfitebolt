@@ -1,8 +1,9 @@
 // MatrixBuilding
 
 process MatrixBuilding {
+    label "processLow"
     publishDir "${params.publish_dir}/MatrixBuilding", mode: 'copy'
-    container = 'docker.io/thamlee2601/bsbolt:v1.0.3'
+    container = 'docker.io/thamlee2601/nxf-bsbolt:v1.0.4'
     
     input:
     path CGmap
