@@ -27,5 +27,5 @@ workflow {
     Align(Cutadapt.out.trimmed, params.index)
     CallMethylation(params.index, Align.out.bam)
     MatrixBuilding(CallMethylation.out.CGmap.collect())
-    MultiQC(params.project, FastQC.out.report.collect(), Cutadapt.out.log.collect(), Align.out.bam, CallMethylation.out.CGmap, MatrixBuilding.out.matrix)
+    MultiQC(params.project, FastQC.out.report.collect(), Cutadapt.out.log.collect(), Align.out.bam, CallMethylation.out.report, MatrixBuilding.out.matrix)
     }

@@ -3,7 +3,7 @@
 process CallMethylation {
     publishDir "$params.publish_dir/CallMethylation", mode: 'copy'
     // add tag here : cluster size small/medium/large/xlarge 
-    container = 'docker.io/thamlee2601/bsbolt:v1.0.3'
+    // container = 'docker.io/thamlee2601/bsbolt:v1.0.3'
 
     input:
     path index
@@ -12,6 +12,7 @@ process CallMethylation {
     output:
     path "*.CGmap.gz"       , emit: CGmap
     path "v_*.txt"          , emit: version
+    path "*_gs_mqc.txt"     , emit: report
 
     script:
     """
@@ -23,7 +24,10 @@ process CallMethylation {
                             -ignore-ov \
                             -max 8000 \
                             -min 10 \
-                            -t 8
+                            -t 8 
+    cat .command.out > ${sample}_report.txt
+    python $baseDir/bin/parse_bsbolt.py ${sample}_report.txt
+
     bsbolt -h | grep BiSulfite > v_bsbolt.txt
     """
 }
