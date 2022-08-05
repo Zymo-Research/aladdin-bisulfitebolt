@@ -17,7 +17,7 @@ process CallMethylation {
     script:
     """
     bsbolt CallMethylation -BQ 10 \
-                            -DB ${index} \
+                            -DB $index \
                             -I ${bam} \
                             -MQ 20 \
                             -O ${sample} \
