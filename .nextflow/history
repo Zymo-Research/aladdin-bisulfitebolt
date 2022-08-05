@@ -1,1 +1,0 @@
-2022-07-29 14:00:06	2.1s	marvelous_fermi	ERR	34629a005cef8100d8b0d07c43eed74f	84de2410-9cae-43c0-a70d-7dcd1578fdd1	nextflow run bsbolt.nf --title test --publish_dir results_metadata --metadata metadata.csv
