@@ -1,9 +1,10 @@
 // CallMethylation
 
 process CallMethylation {
+    label "processMedium"
     publishDir "$params.publish_dir/CallMethylation", mode: 'copy'
     // add tag here : cluster size small/medium/large/xlarge 
-    container = 'docker.io/thamlee2601/bsbolt:v1.0.3'
+    container = 'docker.io/thamlee2601/nxf-bsbolt:v1.0.4'
 
     input:
     path index
@@ -26,7 +27,7 @@ process CallMethylation {
                             -min 10 \
                             -t 8
     cat .command.out > ${sample}_report.txt
-    python $baseDir/bin/parse_bsbolt.py ${sample}_report.txt
+    python3 $baseDir/bin/parse_bsbolt.py ${sample}_report.txt
     bsbolt -h | grep BiSulfite > v_bsbolt.txt
     """
 }

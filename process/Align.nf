@@ -1,9 +1,10 @@
 // Alignment
 
 process Align {
+    label "processHigh"
     publishDir "$params.publish_dir/align", mode: 'copy'
     // add tag here : cluster size small/medium/large/xlarge 
-    container = 'docker.io/thamlee2601/bsbolt:v1.0.3'
+    container = 'docker.io/thamlee2601/nxf-bsbolt:v1.0.4'
 
     input:
     tuple val(sample), path(trimmed)
