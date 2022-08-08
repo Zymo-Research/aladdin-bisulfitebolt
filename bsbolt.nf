@@ -31,6 +31,7 @@ include { Cutadapt }            from ('./process/Cutadapt')
 include { Align }               from ('./process/Align')
 include { CallMethylation }     from ('./process/CallMethylation')
 include { MatrixBuilding }      from ('./process/MatrixBuilding')
+include { Parse_GS }            from ('./process/parse_gs')
 include { MultiQC }             from ('./process/MultiQC')
 
 workflow { 
@@ -38,7 +39,9 @@ workflow {
     Cutadapt(sample_ch)
     Align(Cutadapt.out.trimmed, bsb_index.collect())
     CallMethylation(bsb_index.collect(), Align.out.bam)
+    Parse_GS(Align.out.report.collect(), CallMethylation.out.report.collect())
     MatrixBuilding(CallMethylation.out.CGmap.collect())
+
     //
     // MODULE: MultiQC
     //
@@ -46,5 +49,5 @@ workflow {
         ch_multiqc_files = Channel.empty()
         ch_multiqc_files = ch_multiqc_files.mix(Channel.from(ch_multiqc_config))
     }
-    MultiQC(params.project, FastQC.out.report.collect(), Cutadapt.out.log.collect(), Align.out.bam, CallMethylation.out.report, MatrixBuilding.out.matrix, ch_multiqc_files)
+    MultiQC(params.project, FastQC.out.report.collect(), Cutadapt.out.log.collect(), MatrixBuilding.out.matrix, ch_multiqc_files, Parse_GS.out.report.collect())
     }

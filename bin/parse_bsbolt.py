@@ -1,39 +1,50 @@
 #!/usr/bin/env python
 import pandas as pd
+import os
 import sys
 import re
 from tabulate import tabulate
+tabulate.PRESERVE_WHITESPACE = True
 
-usage = """parse_bsbolt.py ${sample}_report.txt"""
-if len(sys.argv) != 2:
-    exit("Usage: " + usage )
-
-f = open(sys.argv[1], 'r')
-
-filename  = sys.argv[1]
-s_name = ''
-for i in range(len(filename)):
-    s_name += filename[i]
-    if filename[i+1] == '_':
-        break
+usage = """parse_bsbolt.py samples"""
 
 regexes = {
-            "Methylated C in CpG context"   : "Methylated / Total Observed CpG Cytosines:\s*(\d+)",
-            "Methylated C in CH context"    : "Methylated / Total Observed CH Cytosines:\s*(\d+)",
+            "'%Methylated_C_in_CpG_context'"    : "Methylated / Total Observed CpG Cytosines:\s*(\d+)",
+            "'Total_Reads'"                     : "Total Reads:\s*(\d+)",
+            "%Mappability"                       : "Mappability:\s*(\d+)"
             }
+array_header = ['sample']
+array = []
+
+head, tail = os.path.split("/tmp/d/a.dat")
 
 
-array_header = ['sample','%Methylated_C_in_CpG_context','%Methylated_C_in_CH_context']
-array = [s_name]
-mqc_fn = s_name + '_gs_mqc.txt'
-with open(mqc_fn, 'a') as fi:
-    print("# plot_type: 'generalstats'", file = fi)
+for i in range(1,len(sys.argv)):
+    f = open(sys.argv[i], 'r')
+    filename = sys.argv[i].split(os.sep)[-1]
+    s_name = ''
+    for i in range(len(filename)):
+        s_name += filename[i]
+        if filename[i+1] == '_':
+            if filename[i+2] == 'a':
+                method = 'align'
+            else: 
+                method = 'meth'
+            break
+
+    mqc_fn = method + "_gs_mqc.txt"
+    array_s = [s_name]
     for l in f:
         l.strip('\n\r')
         for k, r in regexes.items():
             match = re.search(r, l)
             if match:
                 value = float(match.group(1))
-                array += [str(value) + '%']
-    array_final = [array_header, array ]
-    fi.write(tabulate(array_final, tablefmt="plain"))
+                array_s += [float(value)]
+                array_header += [(k)]
+    array += [array_s]
+
+with open(mqc_fn, 'a+') as fi:
+    print("# plot_type: 'generalstats'", file = fi)
+    array_final = array
+    fi.write(tabulate(array_final, headers = array_header, tablefmt="plain", disable_numparse=True, floatfmt=".4f"))
