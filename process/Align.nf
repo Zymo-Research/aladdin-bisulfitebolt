@@ -1,9 +1,10 @@
 // Alignment
 
 process Align {
+    label "processHigh"
     publishDir "$params.publish_dir/align", mode: 'copy'
     // add tag here : cluster size small/medium/large/xlarge 
-    container = 'docker.io/thamlee2601/bsbolt:v1.0.3'
+    container = 'docker.io/thamlee2601/nxf-bsbolt:v1.0.4'
 
     input:
     tuple val(sample), path(trimmed)
@@ -16,7 +17,7 @@ process Align {
     script:
     """
     bsbolt Align -A 1 -B 4 -CP 0.5 -CT 5 -D 0.5 \
-                    -DB $params.index \
+                    -DB $index \
                     -DR 0.95 -E 1,1 \
                     -F1 ${sample}_ca_R1.fastq \
                     -F2 ${sample}_ca_R2.fastq \
