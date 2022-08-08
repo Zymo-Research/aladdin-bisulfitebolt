@@ -1,0 +1,3 @@
+[multiqc.modules.v1]
+cutadapt = plugins.modules.cutadapt_ext:MultiqcModule
+

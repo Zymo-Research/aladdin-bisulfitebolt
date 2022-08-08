@@ -10,6 +10,15 @@ params.project = "Test"
 
 
 include { setup_channel } from ('./libs/setup_channel')
+/*
+========================================================================================
+    CONFIG FILES
+========================================================================================
+*/
+def mqcPlugins = Channel.fromPath("${baseDir}/assets/mqc_plugins/", checkIfExists: true)
+
+ch_multiqc_config        = file("$projectDir/assets/multiqc_config.yaml", checkIfExists: true)
+ch_multiqc_custom_config = params.multiqc_config ? Channel.fromPath(params.multiqc_config) : Channel.empty()
 
 bsb_index = setup_channel(params.index, "BSB index", true, "")
 
@@ -32,5 +41,13 @@ workflow {
     Align(Cutadapt.out.trimmed, bsb_index.collect())
     CallMethylation(bsb_index.collect(), Align.out.bam)
     MatrixBuilding(CallMethylation.out.CGmap.collect())
-    MultiQC(params.project, FastQC.out.report.collect(), Cutadapt.out.log.collect(), Align.out.bam, CallMethylation.out.report, MatrixBuilding.out.matrix)
+    //
+    // MODULE: MultiQC
+    //
+    if (!params.skip_multiqc) {
+        ch_multiqc_files = Channel.empty()
+        ch_multiqc_files = ch_multiqc_files.mix(Channel.from(ch_multiqc_config))
+        ch_multiqc_files = ch_multiqc_files.mix(ch_multiqc_custom_config.collect().ifEmpty([]))
+    }
+    MultiQC(params.project, FastQC.out.report.collect(), Cutadapt.out.log.collect(), Align.out.bam, CallMethylation.out.report, MatrixBuilding.out.matrix, mqcPlugins, ch_multiqc_files)
     }
