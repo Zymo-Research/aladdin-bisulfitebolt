@@ -1,7 +1,7 @@
 // CallMethylation
 
 process CallMethylation {
-    label "processMedium"
+    label "processHigh"
     publishDir "$params.publish_dir/CallMethylation", mode: 'copy'
     // add tag here : cluster size small/medium/large/xlarge 
     container = 'docker.io/thamlee2601/nxf-bsbolt:v1.0.4'
