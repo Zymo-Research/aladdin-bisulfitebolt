@@ -1,6 +1,7 @@
 // MultiQC
 
 process MultiQC {
+    label "processLow"
     publishDir "$params.publish_dir/MultiQC", mode: 'copy'
     container = 'docker.io/ewels/multiqc:latest'
 
@@ -11,6 +12,7 @@ process MultiQC {
     tuple val(sample), path(bam)
     path align
     path matrix
+    path ch_multiqc_files
     
     output:
     path "*"
