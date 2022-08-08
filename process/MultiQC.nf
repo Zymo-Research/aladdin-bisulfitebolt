@@ -9,10 +9,9 @@ process MultiQC {
     val project
     path fastqc
     path log
-    tuple val(sample), path(bam)
-    path align
     path matrix
     path ch_multiqc_files
+    path parse
     
     output:
     path "*"
