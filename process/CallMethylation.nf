@@ -13,7 +13,7 @@ process CallMethylation {
     output:
     path "*.CGmap.gz"       , emit: CGmap
     path "v_*.txt"          , emit: version
-    path "*_gs_mqc.txt"     , emit: report
+    path "*_report.txt"     , emit: report
 
     script:
     """
@@ -25,9 +25,7 @@ process CallMethylation {
                             -ignore-ov \
                             -max 8000 \
                             -min 10 \
-                            -t 8
-    cat .command.out > ${sample}_report.txt
-    python3 $baseDir/bin/parse_bsbolt.py ${sample}_report.txt
+                            -t 8 > ${sample}_meth_report.txt
     bsbolt -h | grep BiSulfite > v_bsbolt.txt
     """
 }
