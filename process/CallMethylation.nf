@@ -25,7 +25,7 @@ process CallMethylation {
                             -ignore-ov \
                             -max 8000 \
                             -min 10 \
-                            -t 8 > ${sample}_meth_report.txt
+                            -t $task.cpus > ${sample}_meth_report.txt
     bsbolt -h | grep BiSulfite > v_bsbolt.txt
     """
 }
