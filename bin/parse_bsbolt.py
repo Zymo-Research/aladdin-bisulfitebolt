@@ -15,10 +15,6 @@ regexes = {
             }
 array_header = ['sample']
 array = []
-
-head, tail = os.path.split("/tmp/d/a.dat")
-
-
 for i in range(1,len(sys.argv)):
     f = open(sys.argv[i], 'r')
     filename = sys.argv[i].split(os.sep)[-1]
