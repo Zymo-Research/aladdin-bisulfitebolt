@@ -24,7 +24,7 @@ process Align {
                     -F2 ${sample}_ca_R2.fastq \
                     -INDEL 6,6 -L 30,30 -O $sample \
                     -OT 2 -SP 0.1 -T 10 -U 17 -XA 100,200 -c 50 -d 100 -k 25 \
-                    -m 50 -r 1.5 -t 7 -w 100 -y 20 > ${sample}_align_report.txt
+                    -m 50 -r 1.5 -t $task.cpus -w 100 -y 20 > ${sample}_align_report.txt
 
     samtools fixmate -p -m ${sample}.bam ${sample}.fixmates.bam
     samtools sort -@ $task.cpus -O BAM -o ${sample}.sorted.bam ${sample}.fixmates.bam
