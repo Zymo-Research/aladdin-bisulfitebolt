@@ -22,7 +22,7 @@ bsb_index = setup_channel(params.index, "BSB index", true, "")
 
 meta = Channel.from(file(params.metadata))
                 .splitCsv(header:true)
-                .map{ row-> tuple("$row.sample"), file("$row.read1"), file("$row.read2") }
+                .map{ row-> tuple("$row.sample"), file("$row.read_1"), file("$row.read_2") }
                 .set{sample_ch}
 
 
