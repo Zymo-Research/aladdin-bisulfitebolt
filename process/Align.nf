@@ -17,6 +17,7 @@ process Align {
 
     script:
     """
+<<<<<<< HEAD
     bsbolt Align -A 1 -B 4 -CP 0.5 -CT 5 -D 0.5 \
                     -DB $index \
                     -DR 0.95 -E 1,1 \
@@ -25,6 +26,12 @@ process Align {
                     -INDEL 6,6 -L 30,30 -O $sample \
                     -OT 2 -SP 0.1 -T 10 -U 17 -XA 100,200 -c 50 -d 100 -k 25 \
                     -m 50 -r 1.5 -t $task.cpus -w 100 -y 20 > ${sample}_align_report.txt
+=======
+    bsbolt Align -DB $index \
+                -F1 ${sample}_ca_R1.fastq \
+                -F2 ${sample}_ca_R2.fastq \
+                -O $sample > ${sample}_align_report.txt
+>>>>>>> 780378f (Alignment: default parameters)
 
     samtools fixmate -p -m ${sample}.bam ${sample}.fixmates.bam
     samtools sort -@ $task.cpus -O BAM -o ${sample}.sorted.bam ${sample}.fixmates.bam
