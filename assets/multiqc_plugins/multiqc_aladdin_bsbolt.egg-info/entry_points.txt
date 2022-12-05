@@ -1,0 +1,6 @@
+[multiqc.hooks.v1]
+before_config = utils.hooks:before_config
+
+[multiqc.templates.v1]
+aladdin = multiqc_aladdin_bsbolt.templates.aladdin
+
