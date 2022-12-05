@@ -3,7 +3,7 @@
 process MultiQC {
     label "processLow"
     publishDir "$params.publish_dir/MultiQC", mode: 'copy'
-    container = 'docker.io/ewels/multiqc:latest'
+    container = 'docker.io/xingaulag/bsbolt:latest'
 
     input:
     val project
@@ -12,12 +12,16 @@ process MultiQC {
     path matrix
     path ch_multiqc_files
     path parse
+    path "multiqc_custom_plugins"
     
     output:
     path "*"
 
     script:
     """
+    cd multiqc_custom_plugins/
+    python setup.py develop
+    cd ../
     multiqc -f . --title $params.project
     """
 }
