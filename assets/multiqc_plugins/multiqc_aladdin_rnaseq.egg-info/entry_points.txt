@@ -1,0 +1,3 @@
+[multiqc.templates.v1]
+aladdin = multiqc_aladdin_bsbolt.templates.aladdin
+

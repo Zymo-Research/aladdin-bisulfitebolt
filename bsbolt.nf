@@ -8,6 +8,7 @@ params.index = ""
 params.metadata = ""
 params.project = "Test"
 
+def mqcPlugins = Channel.fromPath("${baseDir}/assets/multiqc_plugins/", checkIfExists: true)
 
 include { setup_channel } from ('./libs/setup_channel')
 /*
@@ -49,5 +50,5 @@ workflow {
         ch_multiqc_files = Channel.empty()
         ch_multiqc_files = ch_multiqc_files.mix(Channel.from(ch_multiqc_config))
     }
-    MultiQC(params.project, FastQC.out.report.collect(), Cutadapt.out.log.collect(), MatrixBuilding.out.matrix, ch_multiqc_files, Parse_GS.out.report.collect())
+    MultiQC(params.project, FastQC.out.report.collect(), Cutadapt.out.log.collect(), MatrixBuilding.out.matrix, ch_multiqc_files, Parse_GS.out.report.collect(), mqcPlugins)
     }
