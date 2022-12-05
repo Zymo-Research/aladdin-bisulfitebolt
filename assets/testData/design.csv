@@ -1,2 +1,3 @@
 sample,read_1,read_2
 testSP1,assets/testData/testSP1_R1.fastq.gz,assets/testData/testSP1_R2.fastq.gz
+testSP2,assets/testData/testSP2_R1.fastq.gz,assets/testData/testSP2_R2.fastq.gz
