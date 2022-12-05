@@ -1,0 +1,13 @@
+setup.py
+multiqc_aladdin_bsbolt/__init__.py
+multiqc_aladdin_bsbolt.egg-info/PKG-INFO
+multiqc_aladdin_bsbolt.egg-info/SOURCES.txt
+multiqc_aladdin_bsbolt.egg-info/dependency_links.txt
+multiqc_aladdin_bsbolt.egg-info/entry_points.txt
+multiqc_aladdin_bsbolt.egg-info/requires.txt
+multiqc_aladdin_bsbolt.egg-info/top_level.txt
+multiqc_aladdin_bsbolt/templates/__init__.py
+multiqc_aladdin_bsbolt/templates/aladdin/__init__.py
+multiqc_aladdin_bsbolt/templates/aladdin/assets/__init__.py
+utils/__init__.py
+utils/hooks.py
