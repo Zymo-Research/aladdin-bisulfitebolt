@@ -28,11 +28,11 @@ To run the pipeline, clone the _**dev**_ branch and run the following command:
 ```bash
 nextflow run bsbolt.nf --index /path/to/index/genome/ \
                         --project project_name \
-                        --metadata /path/to/metadata.csv \
+                        --design /path/to/design.csv \
                         2&>1 | tee headnode.log
 ```
 
-The metadata CSV file must have the following format. 
+The design CSV file must have the following format. 
 ```
 group,sample,read_1,read_2
 Control,Sample1,s3://mybucket/this_is_s1_R1.fastq.gz,s3://mybucket/this_is_s1_R2.fastq.gz
