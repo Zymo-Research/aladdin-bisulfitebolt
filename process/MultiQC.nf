@@ -2,7 +2,7 @@
 
 process MultiQC {
     label "processLow"
-    publishDir "$params.publish_dir/MultiQC", mode: 'copy'
+    publishDir "$params.outdir/MultiQC", mode: 'copy'
     container = 'docker.io/xingaulag/bsbolt:latest'
 
     input:
@@ -16,6 +16,8 @@ process MultiQC {
     
     output:
     path "*"
+    path "*multiqc_report.html", emit: report
+    path "multiqc_report_md5sum.txt", emit: md5sum
 
     script:
     """
@@ -23,5 +25,6 @@ process MultiQC {
     python setup.py develop
     cd ../
     multiqc -f . --title $params.project
+    md5sum ${params.project}_multiqc_report.html > multiqc_report_md5sum.txt
     """
 }
