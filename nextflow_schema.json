@@ -1,0 +1,160 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/Zymo-Research/nxf-bisulfitebolt/master/nextflow_schema.json",
+    "title": "Zymo-Research/nxf-bisulfitebolt pipeline parameters",
+    "description": "Nextflow Bisulfitebolt analysis pipeline, part of the Zymo Research bioinformatics pipeline catalog.",
+    "type": "object",
+    "custom_request": true,
+    "custom_request_instruction": "Please provide as much detail as possible for your request. For example, a request for a reference genome should include links to the genome and its annotations.",
+    "definitions": {
+        "input_output_options": {
+            "title": "Input/output options",
+            "type": "object",
+            "description": "Define where the pipeline should find input data and save output data",
+            "properties": {
+                "design": {
+                    "type": "string",
+                    "description": "Path to a design CSV file with sample & group labels, and paths to reads files",
+                    "hidden": true
+                },
+                "outdir": {
+                    "type": "string",
+                    "description": "The output directory where the results will be saved",
+                    "hidden": true
+                }
+            },
+            "required": [
+                "design"
+            ]
+        },
+        "reference_genome_options": {
+            "title": "Reference genome options",
+            "type": "object",
+            "description": "Options for the reference genome indices used to align reads",
+            "default": "",
+            "properties": {
+                "genome": {
+                    "type": "string",
+                    "description": "Reference genome used to align reads. If your genome is not listed, please use Custom Request box to request help.",
+                    "hidden": false,
+                    "advanced": false,
+                    "custom_request": true,
+                    "choices_json": "//////.json"
+                }
+            },
+            "required": [
+                "genome"
+            ]
+        },
+        "read_trimming_options": {
+            "title": "Read trimming options",
+            "type": "object",
+            "description": "Options to adjust read trimming criteria",
+            "properties": {
+                "adapter_first_read": {
+                    "type": "string",
+                    "description": "Sequence of an adapter ligated to the 3' end (paired data: of the first read). The adapter and subsequent bases are trimmed.",
+                    "default": "AGATCGGAAGAGCACACGTCTGAACTCCAGTCA"
+                },
+                "adapter_second_read": {
+                    "type": "string",
+                    "description": "3' adapter to be removed from second read in a pair",
+                    "default": "AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT"
+                },
+                "minimum_length": {
+                    "type": "integer",
+                    "description": "Discard reads shorter than LEN. Default: 1",
+                    "minimum": 1,
+                    "default": 1
+                },
+                "cores": {
+                    "type": "integer",
+                    "description": "Number of CPU cores to use. Use 0 to auto-detect. Default: 7",
+                    "minimum": 1,
+                    "maximum": 8,
+                    "default": 7
+                }
+            },
+            "required": [
+                "adapter_first_read",
+                "adapter_second_read"
+            ]
+        },
+        "callmethylation_options": {
+            "title": "Callmethylation options",
+            "type": "object",
+            "description": "Options to adjust parameters to call methylation",
+            "default": "",
+            "properties": {
+                "base_quality": {
+                    "type": "integer",
+                    "description": "minimum base quality",
+                    "default": 10
+                },
+                "alignment_quality": {
+                    "type": "integer",
+                    "description": "minimum alignment quality",
+                    "minimum": 10,
+                    "default": 20
+                },
+                "max_read_depth": {
+                    "type": "integer",
+                    "description": "max read depth to call methylation [8000]",
+                    "minimum": 100,
+                    "default": 8000
+                },
+                "minimum_read_depth": {
+                    "type": "integer",
+                    "description": "minimum read depth required to report methylation site [10]",
+                    "minimum": 10,
+                    "default": 10
+                }
+            }
+        },
+        "max_job_request_options": {
+            "title": "Max job request options",
+            "type": "object",
+            "description": "Set the top limit for requested resources for any single job",
+            "default": "",
+            "help_text": "",
+            "properties": {
+                "max_time": {
+                    "type": "string",
+                    "description": "Maximum amount of time that can be requested for any single job",
+                    "hidden": true,
+                    "default": "48.h"
+                },
+                "max_memory": {
+                    "type": "string",
+                    "description": "Maximum number of CPUs that can be requested for any single job",
+                    "hidden": true,
+                    "default": "32.GB"
+                },
+                "max_cpus": {
+                    "type": "integer",
+                    "description": "Maximum number of CPUs that can be requested for any single job",
+                    "hidden": true,
+                    "minimum": 1,
+                    "default": 8
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/input_output_options"
+        },
+        {
+            "$ref": "#/definitions/reference_genome_options"
+        },
+        {
+            "$ref": "#/definitions/read_trimming_options"
+        },
+        {
+            "$ref": "#/definitions/callmethylation_options"
+        },
+        {
+            "$ref": "#/definitions/max_job_request_options"
+        }
+    ]
+}
