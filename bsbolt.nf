@@ -11,6 +11,20 @@ params.project = "Test"
 def mqcPlugins = Channel.fromPath("${baseDir}/assets/multiqc_plugins/", checkIfExists: true)
 
 include { setup_channel } from ('./libs/setup_channel')
+include { createSummary; formatSummary; obj_to_json } from './libs/runSummary'
+
+/*
+ * COLLECT SUMMARY & LOG
+ */
+
+def summary = createSummary(params, workflow, nextflow)
+log.info formatSummary(summary)
+// Let's also save the summary to a file
+def workflowLogFile="${params.outdir}/workflow.log"
+def ch_workflow_log=Channel
+                    .value(obj_to_json(summary))
+                    .collectFile(name: workflowLogFile)
+
 /*
 ========================================================================================
     CONFIG FILES
@@ -42,6 +56,11 @@ include { MultiQC }             from ('./process/MultiQC')
 include { Summarize_downloads } from ('./process/Summarize_downloads') addParams(
     publish_dir: "${params.outdir}/download_data"
 )
+include { Software_versions } from ('./process/Software_versions') addParams(
+    publish_dir: "${params.outdir}/pipeline_info",
+    pipeline_version: workflow.manifest.version,
+    nextflow_version: workflow.nextflow.version
+)
 
 workflow { 
     // Check design file and set up channels
@@ -64,8 +83,26 @@ workflow {
         ch_multiqc_files = Channel.empty()
         ch_multiqc_files = ch_multiqc_files.mix(Channel.from(ch_multiqc_config))
     }
-    MultiQC(params.project, FastQC.out.report.collect(), Cutadapt.out.log.collect(), MatrixBuilding.out.matrix, ch_multiqc_files, Parse_GS.out.report.collect(), mqcPlugins)
-    
+    // Software versions
+    versions = FastQC.out.version.first()
+                   .mix(Cutadapt.out.version.first(), 
+                        Align.out.version.first())
+    Software_versions(versions.flatten().collect())
+    Channel.empty()
+        .mix(Channel
+                 .value(Summary.multiqc(params, workflow, nextflow))
+                 .collectFile(name: "workflow_summary_mqc.yaml"),
+            FastQC.out.report.collect(), 
+            Cutadapt.out.log.collect(), 
+            MatrixBuilding.out.matrix, 
+            ch_multiqc_files, 
+            Parse_GS.out.report.collect(),
+            Software_versions.out.report.collect()
+            )
+        .collect()
+        .set { mqcLogs }
+
+    MultiQC(params.project, mqcLogs, mqcPlugins)
     // Gather locations of files to download
 
     bam_locations    = Align.out.bamloca.map { "${params.outdir}/Align/" + it.getName() }
