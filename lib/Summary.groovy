@@ -17,6 +17,8 @@ class Summary {
             .join('\n'.padRight(5))
         String yaml = "id: 'summary'\n"
         yaml += "section_name: 'Workflow Summary'\n"
+        yaml += "description: ' This information is collected when the pipeline is started.'\n"
+
         yaml += "plot_type: 'html'\n"
         yaml += "data: |\n"
         yaml += "  <dl class=\"dl-horizontal\" style=\"padding:19px\">\n"

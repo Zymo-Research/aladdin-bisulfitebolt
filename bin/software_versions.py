@@ -30,7 +30,7 @@ print ('''
 id: 'software_versions'
 section_name: 'Software Versions'
 plot_type: 'html'
-description: 'Software versions are collected at run time from the software output. This pipeline is adapted from <a href="https://github.com/nf-core/rnaseq" target="_blank">nf-core RNAseq pipeline</a>.'
+description: 'Software versions are collected at run time from the software output.'
 data: |
     <dl class="dl-horizontal">
 ''')
