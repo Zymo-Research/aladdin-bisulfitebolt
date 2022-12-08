@@ -7,11 +7,7 @@ process MultiQC {
 
     input:
     val project
-    path fastqc
-    path log
-    path matrix
-    path ch_multiqc_files
-    path parse
+    path mqcLogs
     path "multiqc_custom_plugins"
     
     output:
