@@ -1,4 +1,8 @@
 // CallMethylation
+params.base_quality         = 10
+params.alignment_quality    = 20
+params.minimum_read_depth   = 10
+params.max_read_depth       = 8000
 
 process CallMethylation {
     label "processHigh"
@@ -12,25 +16,24 @@ process CallMethylation {
 
     output:
     path "*.CGmap.gz"       , emit: CGmap
-    path "v_*.txt"          , emit: version
+    // path "v_*.txt"          , emit: version
     path "*_report.txt"     , emit: report
     path "${meta.name}_CGmap_md5sum.txt", emit: md5sum
 
     script:
     """
-    bsbolt CallMethylation -BQ 10 \
+    bsbolt CallMethylation -BQ ${params.base_quality} \
                             -DB $index \
                             -I ${meta.name}_rmdup.bam \
-                            -MQ 20 \
+                            -MQ ${params.alignment_quality} \
                             -O ${meta.name} \
                             -ignore-ov \
-                            -max 8000 \
-                            -min 10 \
+                            -max ${params.max_read_depth} \
+                            -min ${params.minimum_read_depth} \
                             -t $task.cpus > ${meta.name}_meth_report.txt
     
     md5sum ${meta.name}.CGmap.gz > ${meta.name}_CGmap_md5sum.txt
 
-    bsbolt -h | grep BiSulfite > v_bsbolt.txt
     """
 }
 

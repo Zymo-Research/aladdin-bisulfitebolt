@@ -1,4 +1,8 @@
 // Cutadapt
+params.adapter_first_read   = "AGATCGGAAGAGCACACGTCTGAACTCCAGTCA"
+params.adapter_second_read  = "AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT"
+params.minimum_length       = 1
+params.cores                = 7
 
 process Cutadapt {
     label "processMedium"
@@ -16,10 +20,8 @@ process Cutadapt {
 
     script:
     """
-    cutadapt -m 1 -a AGATCGGAAGAGCACACGTCTGAACTCCAGTCA -j 7 -o ${meta.name}_ca_R1.fastq -A AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT \
+    cutadapt -m ${params.minimum_length} -a ${params.adapter_first_read} -j ${params.cores} -o ${meta.name}_ca_R1.fastq -A ${params.adapter_second_read} \
     -p ${meta.name}_ca_R2.fastq ${reads[0]} ${reads[1]} > ${meta.name}.cutadapt.log
-
-
     cutadapt --version > v_Cutadapt.txt
     """
 }
