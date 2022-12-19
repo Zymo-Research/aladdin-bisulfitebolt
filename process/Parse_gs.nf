@@ -3,9 +3,7 @@
 process Parse_GS {
     label "processLow"
     publishDir "$params.outdir/gs_table", mode: 'copy'
-
     container = 'docker.io/thamlee2601/nxf-bsbolt:v1.0.4'
-
 
     input:
     path(align)
