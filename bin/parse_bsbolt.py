@@ -9,9 +9,9 @@ tabulate.PRESERVE_WHITESPACE = True
 usage = """parse_bsbolt.py samples"""
 
 regexes = {
-            "'%Methylated_C_in_CpG_context'"    : "Methylated / Total Observed CpG Cytosines:\s*(\d+)",
-            "'Total_Reads'"                     : "Total Reads:\s*(\d+)",
-            "%Mappability"                       : "Mappability:\s*(\d+)"
+            "'Methylated_C_in_CpG_context'"    : "Methylated / Total Observed CpG Cytosines:\s*(\d{0,2}(.\d{2})*)",
+            "'Total_Reads'"                    : "Total Reads:\s*(\d+)",
+            "Mappability"                      : "Mappability:\s*(\d{0,2}(.\d{2})*)"
             }
 array_header = ['sample']
 array = []
@@ -43,4 +43,4 @@ for i in range(1,len(sys.argv)):
 with open(mqc_fn, 'a+') as fi:
     print("# plot_type: 'generalstats'", file = fi)
     array_final = array
-    fi.write(tabulate(array_final, headers = array_header, tablefmt="plain", disable_numparse=True, floatfmt=".4f"))
+    fi.write(tabulate(array_final, headers = array_header, tablefmt="plain", disable_numparse=True, floatfmt=".2f"))

@@ -9,3 +9,44 @@ report_section_order:
         order: -1600
     summary:
         order: -1700
+custom_data:
+    align_gs:
+        plot_type: "generalstats"
+        pconfig:
+          - Total_Reads:
+             title: "Total trimmed reads"
+             min: 0
+             scale: "RdYlGn"
+             format: '{:,.0f}'
+          - Mappability:
+             title: "Mappability"
+             max: 100
+             min: 0
+             scale: "RdYlGn"
+             suffix: "%"
+    meth_gs:
+        plot_type: "generalstats"
+        pconfig:
+          - Methylated_C_in_CpG_context:
+             title: "% Methylated C in CpG context"
+             max: 100
+             min: 0
+             scale: "RdYlGn"
+             suffix: "%"
+table_columns_placement:
+  FastQC:
+    total_sequences: 100
+    avg_sequence_length: 101
+    percent_gc: 102
+    percent_duplicates: 103
+    percent_fails: 104
+  Cutadapt:
+    percent_trimmed: 105
+  align_gs:
+    Total_Reads: 106
+    Mappability: 108
+  meth_gs:
+    Methylated_C_in_CpG_context: 109
+
+
+
