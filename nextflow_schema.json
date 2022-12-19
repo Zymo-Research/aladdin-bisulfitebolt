@@ -2,7 +2,7 @@
     "$schema": "http://json-schema.org/draft-07/schema",
     "$id": "https://raw.githubusercontent.com/Zymo-Research/nxf-bisulfitebolt/master/nextflow_schema.json",
     "title": "Zymo-Research/nxf-bisulfitebolt pipeline parameters",
-    "description": "Nextflow Bisulfitebolt analysis pipeline, part of the Zymo Research bioinformatics pipeline catalog.",
+    "description": "Bisulfitebolt analysis pipeline, part of the Aladdin Bioinformatics Platform pipeline catalog.",
     "type": "object",
     "custom_request": true,
     "custom_request_instruction": "Please provide as much detail as possible for your request. For example, a request for a reference genome should include links to the genome and its annotations.",
