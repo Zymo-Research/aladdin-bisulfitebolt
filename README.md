@@ -26,7 +26,7 @@ python3 -m bsbolt Index -G hg38_selected.fa -DB DB_indexFull_test -rrbs -rrbs-cu
 To run the pipeline, clone the _**dev**_ branch and run the following command:
 
 ```bash
-nextflow run bsbolt.nf --index /path/to/index/genome/ \
+nextflow run main.nf --index /path/to/index/genome/ \
                         --project project_name \
                         --design /path/to/design.csv \
                         2&>1 | tee headnode.log
