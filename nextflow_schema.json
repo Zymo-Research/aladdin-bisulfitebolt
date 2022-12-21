@@ -21,6 +21,11 @@
                     "type": "string",
                     "description": "The output directory where the results will be saved",
                     "hidden": true
+                },
+                "project": {
+                    "type": "string",
+                    "description": "The file name of multiqc report",
+                    "hidden": true
                 }
             },
             "required": [
