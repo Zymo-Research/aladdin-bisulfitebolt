@@ -1,12 +1,11 @@
 #!/usr/bin/env python
-import pandas as pd
 import os
 import sys
 import re
 from tabulate import tabulate
 tabulate.PRESERVE_WHITESPACE = True
 
-usage = """parse_bsbolt.py samples"""
+usage = "parse_bsbolt.py samples"
 
 regexes = {
             "'Methylated_C_in_CpG_context'"    : "Methylated / Total Observed CpG Cytosines:\s*(\d{0,2}(.\d{2})*)",
