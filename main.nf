@@ -6,7 +6,7 @@ nextflow.enable.dsl = 2
 params.outdir = './results'
 params.index = ""
 params.design = ""
-params.project = "Test"
+params.project = ""
 
 def mqcPlugins = Channel.fromPath("${baseDir}/assets/multiqc_plugins/", checkIfExists: true)
 

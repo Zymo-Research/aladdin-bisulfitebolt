@@ -3,8 +3,8 @@ params.ignore_R1 = false
 // Sanity check design file
 process Check_design {
     tag "$design"
-    container = 'quay.io/biocontainers/python:3.8.3'
-
+    container = 'docker.io/thamlee2601/nxf-bsbolt-python:v1.0.0'
+    
     input:
     path design
     path comparisons

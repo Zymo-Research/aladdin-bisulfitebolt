@@ -4,7 +4,8 @@ params.publish_dir = 'download_data'
 process Summarize_downloads {
     label 'no_cache'
     publishDir "${params.publish_dir}", mode: 'copy'
-
+    container = 'docker.io/thamlee2601/nxf-bsbolt-python:v1.0.0'
+    
     input:
     path locations
     path md5sums
