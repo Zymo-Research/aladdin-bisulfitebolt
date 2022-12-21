@@ -5,7 +5,8 @@ process Software_versions {
     label 'no_cache'
     publishDir "${params.publish_dir}", mode: 'copy',
         saveAs: { it == "software_versions.csv" ? it : null }
-
+    container = 'docker.io/thamlee2601/nxf-bsbolt-python:v1.0.0'
+    
     input:
     path version_files
 
