@@ -5,7 +5,9 @@ process Align {
     publishDir "$params.outdir/Align", mode: 'copy'
     // add tag here : cluster size small/medium/large/xlarge 
     container = 'docker.io/thamlee2601/nxf-bsbolt:v1.0.4'
-
+    errorStrategy 'retry'
+    maxRetries 1
+    
     input:
     tuple val(meta), path(trimmed)
     path index
@@ -21,14 +23,15 @@ process Align {
     script:
     """
     bsbolt Align -DB $index \
+                -t $task.cpus \
                 -F1 ${meta.name}_ca_R1.fastq \
                 -F2 ${meta.name}_ca_R2.fastq \
                 -O ${meta.name} > ${meta.name}_align_report.txt
 
-    samtools fixmate -p -m ${meta.name}.bam ${meta.name}.fixmates.bam
+    samtools fixmate -@ $task.cpus -p -m ${meta.name}.bam ${meta.name}.fixmates.bam
     samtools sort -@ $task.cpus -O BAM -o ${meta.name}.sorted.bam ${meta.name}.fixmates.bam
-    samtools markdup ${meta.name}.sorted.bam ${meta.name}_rmdup.bam
-    samtools index ${meta.name}_rmdup.bam
+    samtools markdup ${meta.name}.sorted.bam ${meta.name}_rmdup.bam -@ $task.cpus
+    samtools index ${meta.name}_rmdup.bam -@ $task.cpus
     md5sum ${meta.name}_rmdup.bam > ${meta.name}_bam_md5sum.txt
 
     bsbolt -h | grep BiSulfite > v_bsbolt.txt
