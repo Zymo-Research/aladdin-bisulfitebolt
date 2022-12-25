@@ -16,7 +16,7 @@ process MatrixBuilding {
     script:
     """
     ls *.CGmap.gz > CGmap_list.txt
-    bsbolt AggregateMatrix -F CGmap_list.txt -O CGmap_matrix.txt
+    bsbolt AggregateMatrix -F CGmap_list.txt -O CGmap_matrix.txt -t $task.cpus
     md5sum CGmap_matrix.txt > Matrix_CGmap_md5sum.txt
     """
 }
