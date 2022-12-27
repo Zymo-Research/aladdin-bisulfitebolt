@@ -8,9 +8,9 @@ tabulate.PRESERVE_WHITESPACE = True
 usage = "parse_bsbolt.py samples"
 
 regexes = {
-            "'Methylated_C_in_CpG_context'"    : "Methylated / Total Observed CpG Cytosines:\s*(\d{0,2}(.\d{2})*)",
-            "'Total_Reads'"                    : "Total Reads:\s*(\d+)",
-            "Mappability"                      : "Mappability:\s*(\d{0,2}(.\d{2})*)"
+            "Methylated_C_in_CpG_context"    : "Methylated / Total Observed CpG Cytosines:\s*(\d{0,2}(.\d{2})*)",
+            "Total_Reads"                    : "Total Reads:\s*(\d+)",
+            "Mappability"                    : "Mappability:\s*(\d{0,2}(.\d{2})*)"
             }
 array_header = ['sample']
 array = []

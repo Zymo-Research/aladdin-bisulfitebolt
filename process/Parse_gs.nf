@@ -6,7 +6,7 @@ process Parse_GS {
     
     input:
     path(align)
-    path(methnn)
+    path(meth)
     
     output:
     path "*_gs_mqc.txt" , emit: report
@@ -14,7 +14,7 @@ process Parse_GS {
     script:
     """
     parse_bsbolt.py $align
-    parse_bsbolt.py $methnn
+    parse_bsbolt.py $meth
 
     """
 }
