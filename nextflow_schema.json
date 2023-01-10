@@ -40,11 +40,10 @@
             "properties": {
                 "genome": {
                     "type": "string",
-                    "description": "Reference genome used to align reads. If your genome is not listed, please use Custom Request box to request help.",
+                    "description": "Reference genome used to align reads.",
                     "hidden": false,
                     "advanced": false,
-                    "custom_request": true,
-                    "choices_json": "//////.json"
+                    "enum": ["hg38", "mm10", "hg38_testdata"]
                 }
             },
             "required": [

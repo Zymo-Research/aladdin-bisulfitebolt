@@ -14,6 +14,19 @@ include { setup_channel } from ('./libs/setup_channel')
 include { createSummary; formatSummary; obj_to_json } from './libs/runSummary'
 
 /*
+ * COLLECT GENOME
+ */
+def getGenomeAttribute(params, attribute) {
+    def val = ''
+    if (params.genomes && params.genome && params.genomes.containsKey(params.genome)) {
+        if (params.genomes[params.genome].containsKey(attribute)) {
+            val = params.genomes[params.genome][attribute]
+        }
+    }
+    return val
+}
+params.index = getGenomeAttribute(params, 'index')
+/*
  * COLLECT SUMMARY & LOG
  */
 
@@ -32,8 +45,8 @@ def ch_workflow_log=Channel
 */
 
 ch_multiqc_config        = file("$projectDir/assets/multiqc_config.yaml", checkIfExists: true)
-
-bsb_index = setup_channel(params.index, "BSB index", true, "")
+params.bsb_index = params.genomes[ params.genome ].index ?: false
+bsb_index = setup_channel(params.bsb_index, "BSB index", true, "")
 design = setup_channel(params.design, "design CSV file", true, "")
 comparisons = setup_channel(params.comparisons, "comparison CSV file", false, "all pairwise comparisons will be carried out.")
 
