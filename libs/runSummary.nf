@@ -7,7 +7,7 @@ def createSummary(params, worflow, nextflow) {
     }
     summary['Nextflow Version'] = "${nextflow.version}"
     summary['Run Name']         = run_name ?: workflow.runName
-    summary['Index']            = params.index
+    summary['Genome']            = params.genome
     return summary
 }
 
