@@ -1,0 +1,10 @@
+.nextflow*
+work/
+data/
+results/
+results_metadata/
+.DS_Store
+tests/test_data
+*.pyc
+headnode*.log
+.nextflow/*****
