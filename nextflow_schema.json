@@ -1,7 +1,7 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema",
-    "$id": "https://raw.githubusercontent.com/Zymo-Research/nxf-bisulfitebolt/master/nextflow_schema.json",
-    "title": "Zymo-Research/nxf-bisulfitebolt pipeline parameters",
+    "$id": "https://raw.githubusercontent.com/Zymo-Research/aladdin-bisulfitebolt/main/nextflow_schema.json",
+    "title": "Zymo-Research/aladdin-bisulfitebolt pipeline parameters",
     "description": "Bisulfitebolt analysis pipeline, part of the Aladdin Bioinformatics Platform pipeline catalog.",
     "type": "object",
     "custom_request": true,
@@ -42,11 +42,8 @@
                 "genome": {
                     "type": "string",
                     "description": "Reference genome used to align reads.",
-                    "hidden": false,
-                    "advanced": false,
                     "enum": ["hg38",
-                             "mm10",
-                             "hg38_testdata"]
+                             "mm10"]
                 }
             },
             "required": [
@@ -61,19 +58,19 @@
                 "adapter_first_read": {
                     "type": "string",
                     "description": "Sequence of an adapter ligated to the 3' end (paired data: of the first read). The adapter and subsequent bases are trimmed.",
-                    "hidden": true,
+                    "advanced": true,
                     "default": "AGATCGGAAGAGCACACGTCTGAACTCCAGTCA"
                 },
                 "adapter_second_read": {
                     "type": "string",
                     "description": "3' adapter to be removed from second read in a pair",
-                    "hidden": true,
+                    "advanced": true,
                     "default": "AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT"
                 },
                 "minimum_length": {
                     "type": "integer",
-                    "description": "Discard reads shorter than LEN. Default: 1",
-                    "hidden": true,
+                    "description": "Discard reads shorter than this.",
+                    "advanced": true,
                     "minimum": 1,
                     "default": 1
                 },
@@ -100,27 +97,27 @@
                 "base_quality": {
                     "type": "integer",
                     "description": "minimum base quality",
-                    "hidden": true,
+                    "advanced": true,
                     "default": 10
                 },
                 "alignment_quality": {
                     "type": "integer",
                     "description": "minimum alignment quality",
-                    "hidden": true,
+                    "advanced": true,
                     "minimum": 10,
                     "default": 20
                 },
                 "max_read_depth": {
                     "type": "integer",
-                    "description": "max read depth to call methylation [8000]",
-                    "hidden": true,
+                    "description": "max read depth to call methylation",
+                    "advanced": true,
                     "minimum": 100,
                     "default": 8000
                 },
                 "minimum_read_depth": {
                     "type": "integer",
-                    "description": "minimum read depth required to report methylation site [10]",
-                    "hidden": true,
+                    "description": "minimum read depth required to report methylation site",
+                    "advanced": true,
                     "minimum": 10,
                     "default": 10
                 }
