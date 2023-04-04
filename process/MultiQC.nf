@@ -3,7 +3,7 @@
 process MultiQC {
     label "processLow"
     publishDir "$params.outdir/MultiQC", mode: 'copy'
-    container = 'docker.io/xingaulag/bsbolt:latest'
+    container = 'docker.io/xingaulag/bsbolt-python:v0.0.7'
 
     input:
     val project
