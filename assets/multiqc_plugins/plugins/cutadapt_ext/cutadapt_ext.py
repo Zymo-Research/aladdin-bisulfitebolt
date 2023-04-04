@@ -64,8 +64,6 @@ class MultiqcModule(BaseMultiqcModule):
                 match = re.search(r, l)
                 if match:
                     self.cutadapt_data[s_name][k] = int(match.group(1).replace(",", ""))
-
-
         # Calculate a few extra numbers of our own
         for s_name, d in self.cutadapt_data.items():
             # Percent trimmed
@@ -86,6 +84,18 @@ class MultiqcModule(BaseMultiqcModule):
             "max": 100,
             "min": 0,
             "suffix": "%",
+            "scale": "RdYlBu-rev",
+        }
+        headers["pairs_processed"] = {
+            "title": "Total pair reads",
+            "description": "Number of pair reads",
+            "min": 0,
+            "scale": "RdYlBu-rev",
+        }
+        headers["r_processed"] = {
+            "title": "Total reads",
+            "description": "Number of reads",
+            "min": 0,
             "scale": "RdYlBu-rev",
         }
         self.general_stats_addcols(self.cutadapt_data, headers)
