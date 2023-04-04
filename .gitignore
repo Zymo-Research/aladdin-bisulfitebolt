@@ -8,3 +8,6 @@ tests/test_data
 *.pyc
 headnode*.log
 .nextflow/*****
+null/
+.results/
+*_headnode.log

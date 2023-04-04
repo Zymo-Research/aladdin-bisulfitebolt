@@ -3,7 +3,7 @@ params.ignore_R1 = false
 // Sanity check design file
 process Check_design {
     tag "$design"
-    container = 'docker.io/thamlee2601/nxf-bsbolt-python:v1.0.0'
+    container = 'docker.io/xingaulag/bsbolt-python:v0.0.5'
     
     input:
     path design
