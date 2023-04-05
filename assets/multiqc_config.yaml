@@ -37,7 +37,6 @@ custom_data:
              suffix: "%"
 table_columns_placement:
   FastQC:
-    total_sequences: 100
     avg_sequence_length: 101
     percent_gc: 102
     percent_duplicates: 103
@@ -49,6 +48,6 @@ table_columns_placement:
     Mappability: 108
   meth_gs:
     Methylated_C_in_CpG_context: 109
-
-
-
+table_columns_visible:
+    FastQC: 
+      total_sequences: False
