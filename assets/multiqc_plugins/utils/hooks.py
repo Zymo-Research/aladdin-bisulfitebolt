@@ -16,7 +16,13 @@ def execution_start():
     search_patterns = {
         'cutadapt': {
             'fn': '*cutadapt.log',
-        }
+        },
+	'fastqc/zip': {
+	    'fn': '*_fastqc.zip'
+	},
+	'fastqc/data': {
+	    'fn': 'fastqc_data.txt'
+	}
     }
     config.update_dict(config.sp, search_patterns)
     return

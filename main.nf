@@ -86,7 +86,7 @@ workflow {
     Cutadapt(reads)
     Align(Cutadapt.out.trimmed, bsb_index.collect())
     CallMethylation(bsb_index.collect(), Align.out.bam)
-    Parse_GS(Align.out.report.collect(), CallMethylation.out.report.collect())
+    //Parse_GS(Align.out.report.collect(), CallMethylation.out.report.collect())
     MatrixBuilding(CallMethylation.out.CGmap.collect())
 
     //
@@ -108,8 +108,7 @@ workflow {
             FastQC.out.report.collect(), 
             Cutadapt.out.log.collect(), 
             MatrixBuilding.out.matrix, 
-            ch_multiqc_files, 
-            Parse_GS.out.report.collect(),
+            ch_multiqc_files,
             Software_versions.out.report.collect()
             )
         .collect()

@@ -21,6 +21,7 @@ setup(
         ],
         'multiqc.modules.v1': [
             'cutadapt = plugins.cutadapt_ext:MultiqcModule',
+	    'fastqc = plugins.fastqc_ext:MultiqcModule',
         ],
         'multiqc.hooks.v1': [
             'before_config = utils.hooks:before_config',
