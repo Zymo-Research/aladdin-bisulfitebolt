@@ -4,7 +4,7 @@ process Align {
     label "processHigh"
     publishDir "$params.outdir/Align", mode: 'copy'
     // add tag here : cluster size small/medium/large/xlarge 
-    container = 'docker.io/thamlee2601/nxf-bsbolt:v1.0.4'
+    container = 'docker.io/xingaulag/aladdin-bsbolt:v0.0.1'
     errorStrategy 'retry'
     maxRetries 1
     

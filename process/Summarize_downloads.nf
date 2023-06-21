@@ -4,7 +4,7 @@ params.publish_dir = 'download_data'
 process Summarize_downloads {
     label 'no_cache'
     publishDir "${params.publish_dir}", mode: 'copy'
-    container = 'docker.io/xingaulag/bsbolt-python:v0.0.5'
+    container = 'docker.io/xingaulag/aladdin-bsbolt:v0.0.1'
     
     input:
     path locations
