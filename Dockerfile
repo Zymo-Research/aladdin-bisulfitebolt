@@ -1,6 +1,12 @@
 FROM python:3.8-slim
 
-RUN apt-get update && apt install -y procps g++ coreutils && apt-get clean
+RUN apt-get update \
+    && apt install -y procps \
+    g++ \
+    coreutils \
+    libbz2-dev \
+    liblzma-dev \
+    samtools && apt-get clean
 
 WORKDIR /opt/analysis
 
