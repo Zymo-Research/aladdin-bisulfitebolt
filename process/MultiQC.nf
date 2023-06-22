@@ -3,7 +3,7 @@
 process MultiQC {
     label "processLow"
     publishDir "$params.outdir/MultiQC", mode: 'copy'
-    container = 'docker.io/xingaulag/aladdin-bsbolt:v0.0.1'
+    container = 'docker.io/xingaulag/aladdin-bsbolt:v0.0.2'
 
     input:
     val project

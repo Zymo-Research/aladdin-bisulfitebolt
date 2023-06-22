@@ -3,7 +3,7 @@
 process MatrixBuilding {
     label "processLow"
     publishDir "${params.outdir}/MatrixBuilding", mode: 'copy'
-    container = 'docker.io/xingaulag/aladdin-bsbolt:v0.0.'
+    container = 'docker.io/xingaulag/aladdin-bsbolt:v0.0.2'
 
     input:
     path CGmap

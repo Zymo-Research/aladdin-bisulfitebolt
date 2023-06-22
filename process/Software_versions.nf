@@ -5,7 +5,7 @@ process Software_versions {
     label 'no_cache'
     publishDir "${params.publish_dir}", mode: 'copy',
         saveAs: { it == "software_versions.csv" ? it : null }
-    container = 'docker.io/xingaulag/aladdin-bsbolt:v0.0.1'
+    container = 'docker.io/xingaulag/aladdin-bsbolt:v0.0.2'
     
     input:
     path version_files
