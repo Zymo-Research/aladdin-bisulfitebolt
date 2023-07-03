@@ -2,7 +2,7 @@
 
 process Parse_GS {
     publishDir "$params.outdir/gs_table", mode: 'copy'
-    container = 'docker.io/thamlee2601/nxf-bsbolt-python:v1.0.0'
+    container = 'docker.io/xingaulag/aladdin-bsbolt:v0.0.2'
     
     input:
     path(align)
