@@ -3,7 +3,7 @@ params.ignore_R1 = false
 // Sanity check design file
 process Check_design {
     tag "$design"
-    container = 'docker.io/xingaulag/aladdin-bsbolt:v0.0.2'
+    container = 'docker.io/bioinforpi/aladdin-bsbolt:v1.0.0'
     
     input:
     path design
